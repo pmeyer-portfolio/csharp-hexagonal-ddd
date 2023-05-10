@@ -1,1 +1,1 @@
-test
+Start application in visual studio with "Neusta.Workshop.Buchungssystem.RestApi"
