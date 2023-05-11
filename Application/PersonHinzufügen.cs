@@ -1,10 +1,10 @@
-﻿using Neusta.Workshop.Buchungssystem.Domain.Common;
+﻿namespace Neusta.Workshop.Buchungssystem.Application;
+
+using Neusta.Workshop.Buchungssystem.Domain.Common;
 using Neusta.Workshop.Buchungssystem.Domain.Person;
 using Neusta.Workshop.Buchungssystem.Domain.Person.Exceptions;
 using Neusta.Workshop.Buchungssystem.Domain.Raum;
 using Neusta.Workshop.Buchungssystem.Domain.Raum.Exceptions;
-
-namespace Neusta.Workshop.Buchungssystem.Application;
 
 public class PersonHinzufügen : IPersonHinzufügen
 {
@@ -17,11 +17,11 @@ public class PersonHinzufügen : IPersonHinzufügen
         this.personRepository = personRepository;
     }
 
-    public Person Hinzufügen(Id raumId, Person person)
+    public void Hinzufügen(Id raumId, string ldapKennung)
     {
-        if (this.personRepository.Existiert(person.LdapKennung))
+        if (!this.personRepository.Existiert(ldapKennung))
         {
-            throw new PersonExistiertException($"ldap {person.LdapKennung} existiert schon");
+            throw new PersonExistiertNichtException($"ldap {ldapKennung} existiert noch nicht");
         }
 
         if (!this.raumRepository.Existiert(raumId))
@@ -29,18 +29,15 @@ public class PersonHinzufügen : IPersonHinzufügen
             throw new RaumDoesNotExistException($"Raum exisitiert noch nicht raumId: {raumId}");
         }
 
-        Person angelegtePerson = this.personRepository.Anlegen(person);
-        if (!this.raumRepository.PersonExistiertInEinmRaum(person.Id))
-        {
-            this.raumRepository.FuegePersonInRaumHinzu(raumId, angelegtePerson.Id);
-            return angelegtePerson;
-        }
+        Id personId = this.personRepository.Abfragen(ldapKennung);
 
-        throw new PersonExistiertImRaumException($"Person existiert schon im Raum mit id {raumId} und personId {person.Id}");
+        Raum raum = this.raumRepository.Abfragen(raumId);
+        raum.AddPerson(personId);
+        this.raumRepository.Aktualisieren(raum);
     }
 }
 
 public interface IPersonHinzufügen
 {
-    Person Hinzufügen(Id raumId, Person person);
+    void Hinzufügen(Id raumId, string ldapKennung);
 }

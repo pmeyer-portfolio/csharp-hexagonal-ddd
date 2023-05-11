@@ -15,4 +15,5 @@ public interface IRaumRepository
     bool PersonExistiertInEinmRaum(Id personId);
 
     void FuegePersonInRaumHinzu(Id raumId, Id personId);
+    void Aktualisieren(Raum raum);
 }

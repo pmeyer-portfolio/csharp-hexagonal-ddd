@@ -4,7 +4,7 @@ namespace Neusta.Workshop.Buchungssystem.Domain.Person;
 
 public class Namenszusatz
 {
-    private static readonly string[] erlaubteNamenszusätze = { "von", "van", "de" };
+    private static readonly string?[] erlaubteNamenszusätze = { "von", "van", "de", string.Empty, null };
 
     public Namenszusatz(string value)
     {

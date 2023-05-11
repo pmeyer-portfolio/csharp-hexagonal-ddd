@@ -20,6 +20,6 @@ public class Person
 
     public string GetKurzschreibweise()
     {
-        return $"{Vorname} {Namenszusatz} {Nachname} ({LdapKennung})";
+        return $"{Vorname.Value} {Namenszusatz.Value} {Nachname.Value} ({LdapKennung})";
     }
 }

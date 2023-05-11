@@ -7,4 +7,5 @@ public interface IRoomEntityMapper
 {
     RoomEntity Map(Raum raum);
     Raum Map(RoomEntity roomEntity);
+    void MapToEntity(RoomEntity roomEntity, Raum raum);
 }

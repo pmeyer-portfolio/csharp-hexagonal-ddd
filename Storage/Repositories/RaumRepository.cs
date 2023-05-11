@@ -1,5 +1,4 @@
 ﻿using Neusta.Workshop.Buchungssystem.Domain.Common;
-using Neusta.Workshop.Buchungssystem.Domain.Person;
 using Neusta.Workshop.Buchungssystem.Domain.Raum;
 using Neusta.Workshop.Buchungssystem.Storage.Entities;
 using Neusta.Workshop.Buchungssystem.Storage.Interfaces;
@@ -20,14 +19,13 @@ internal class RaumRepository : IRaumRepository
     public Raum Anlegen(Raum raum)
     {
         RoomEntity roomEntity = this.roomEntityMapper.Map(raum);
-        roomEntity.Id = Guid.NewGuid();
         this.Rooms.Add(roomEntity);
         return this.roomEntityMapper.Map(roomEntity);
     }
 
     public Raum Abfragen(Id id)
     {
-        RoomEntity roomEntity = this.Rooms.FirstOrDefault(x => x.Id == id.Value);
+        RoomEntity roomEntity = this.Rooms.First(x => x.Id == id.Value);
 
         return this.roomEntityMapper.Map(roomEntity);
     }
@@ -51,5 +49,11 @@ internal class RaumRepository : IRaumRepository
     {
         RoomEntity roomEntity = this.Rooms.First(x => x.Id == raumId.Value);
         roomEntity.PersonIds.Add(personId.Value);
+    }
+
+    public void Aktualisieren(Raum raum)
+    {
+        RoomEntity roomEntity = this.Rooms.First(x => x.Id == raum.Id.Value);
+        this.roomEntityMapper.MapToEntity(roomEntity, raum);
     }
 }

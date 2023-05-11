@@ -5,6 +5,7 @@ public interface IPersonRepository
 {
     Person Anlegen(Person person);
 
+    Id Abfragen(string ldapKennung);
     Person Abfragen(Id id);
 
     bool Existiert(string ldapKennung);

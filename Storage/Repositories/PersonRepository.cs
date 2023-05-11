@@ -24,10 +24,16 @@ internal class PersonRepository : IPersonRepository
         return this.personEntityMapper.Map(personEntity);
     }
 
+    public Id Abfragen(string ldapKennung)
+    {
+        PersonEntity personEntity = this.Persons.First(x => x.LdapKennung == ldapKennung);
+
+        return new Id(personEntity.Id);
+    }
+
     public Person Abfragen(Id id)
     {
-        PersonEntity personEntity = this.Persons.FirstOrDefault(x => x.Id == id.Value);
-
+        PersonEntity personEntity = this.Persons.First(x => x.Id == id.Value);
         return this.personEntityMapper.Map(personEntity);
     }
 
