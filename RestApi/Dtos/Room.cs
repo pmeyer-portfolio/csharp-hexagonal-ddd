@@ -8,5 +8,5 @@ public class Room
 
     public string Nummer { get; set; }
 
-    public IList<Guid> PersonIds { get; set; }
+    public IList<string> Personen { get; set; } = new List<string>();
 }

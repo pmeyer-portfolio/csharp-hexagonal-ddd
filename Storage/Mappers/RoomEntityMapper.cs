@@ -19,8 +19,17 @@ public class RoomEntityMapper : IRoomEntityMapper
 
     public Raum Map(RoomEntity roomEntity)
     {
-        Raum raum = new Raum(roomEntity.Id, roomEntity.Name, roomEntity.Nummer);
-        raum.PersonIds = roomEntity.PersonIds.Select(x=> new Id(x)).ToList();
-        return raum;
+        return new(roomEntity.Name, roomEntity.Nummer)
+        {
+            Id = new Id(roomEntity.Id),
+            PersonIds = roomEntity.PersonIds.Select(x => new Id(x)).ToList()
+        };
+    }
+
+    public void MapToEntity(RoomEntity roomEntity, Raum raum)
+    {
+        roomEntity.Name = raum.Name.Value;
+        roomEntity.Nummer = raum.Nummer.Value;
+        roomEntity.PersonIds = raum.PersonIds.Select(x => x.Value).ToList();
     }
 }

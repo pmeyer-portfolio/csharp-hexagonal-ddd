@@ -1,6 +1,4 @@
-﻿using Neusta.Workshop.Buchungssystem.Domain.Common;
-
-namespace Neusta.Workshop.Buchungssystem.Storage.Entities;
+﻿namespace Neusta.Workshop.Buchungssystem.Storage.Entities;
 
 public class RoomEntity
 {
@@ -10,5 +8,5 @@ public class RoomEntity
 
     public string Nummer { get; set; }
 
-    public IList<Guid> PersonIds { get; } = new List<Guid>();
+    public IList<Guid> PersonIds { get; set; } = new List<Guid>();
 }

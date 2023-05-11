@@ -1,9 +1,9 @@
-﻿using Neusta.Workshop.Buchungssystem.Domain.Raum;
-using Neusta.Workshop.Buchungssystem.Domain.Common;
+﻿using Neusta.Workshop.Buchungssystem.Domain.Common;
+using Neusta.Workshop.Buchungssystem.Application.Models;
 
 namespace Neusta.Workshop.Buchungssystem.Application.Interfaces;
 
 public interface IRaumAbfragen
 {
-    Raum Abfragen(Id id);
+    RaumDto Abfragen(Id id);
 }
